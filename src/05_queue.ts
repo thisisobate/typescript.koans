@@ -41,14 +41,14 @@ class TailNumberQueueItem implements INumberQueueItem {
   // The tail item's successor is the tail item itself.
   public next: TailNumberQueueItem = this;
 
-  enqueue (value: number): NumberQueueItem {
+  enqueue(value: number): NumberQueueItem {
     // When we're the last item in the queue (which is the case here), enqueue wraps
     // our passed in value in a NumberQueueItem and returns it.
     return new NumberQueueItem(value);
   }
 
   // When the queue is empty, toArray() returns an empty array.
-  toArray (): Array<number> {
+  toArray(): Array<number> {
     return [];
   }
 }
@@ -58,11 +58,11 @@ class NumberQueueItem implements INumberQueueItem {
   public value: number;
   public next: TailNumberQueueItem = new TailNumberQueueItem();
 
-  constructor (value: number) {
+  constructor(value: number) {
     this.value = value;
   }
 
-  enqueue (value: number): NumberQueueItem {
+  enqueue(value: number): NumberQueueItem {
     // When we add an item to the queue and we're the last "real" queue item
     // that holds a value, we need to update our reference to the next queue
     // item. Usually we would want to hold a reference to the last item, but to
@@ -72,7 +72,7 @@ class NumberQueueItem implements INumberQueueItem {
     return this;
   }
 
-  toArray (): Array<number> {
+  toArray(): Array<number> {
     // The time complexity of this isn't great. We could use generators for
     // this.
     return [this.value, ...this.next.toArray()];
@@ -83,22 +83,18 @@ export class NumberQueue implements INumberQueue {
   // The head of the queue can initially be set to a new TailNumberQueueItem.
   private head: TailNumberQueueItem = new TailNumberQueueItem();
 
-  enqueue (value: number): void {
+  enqueue(value: number): void {
     // The nice thing about the way we implemented the TailNumberQueueItem is
     // that we don't actually have to check whether or not our queue is empty. We
     // can always just enqueue() onto it.
-    this.head = this.head.enqueue(value);
   }
 
-  dequeue (): number {
-    const value = this.head.value;
-    this.head = this.head.next;
-    return value;
+  dequeue(): number {
+    return -1;
   }
 
-  toArray (): Array<number> {
-    // Same with toArray()...
-    return this.head.toArray();
+  toArray(): Array<number> {
+    return [];
   }
 }
 
@@ -106,7 +102,7 @@ export class NumberQueue implements INumberQueue {
 // But what if instead of having a queue of numbers, we want to have a queue of
 // strings? We would either have to completely re-implement the above
 // functionality or implement it using the "any" data type.
-// Using "any" means we can no longer rely on the level of type safety that 
+// Using "any" means we can no longer rely on the level of type safety that
 // TypeScript compiler guarantees, while re-implementing it i tedious, error-
 // prone duplicates a lot of logic.
 
@@ -116,7 +112,7 @@ export class NumberQueue implements INumberQueue {
 
 // TypeScript allows us to use interfaces. By convention we prefix them with "I",
 // but it's not strictly required.
-interface IQueue <T> {
+interface IQueue<T> {
   // enqueue() adds an item to the number queue.
   enqueue(value: T): void;
 
@@ -129,7 +125,7 @@ interface IQueue <T> {
 
 // IQueueItem is our queue item interface. Our queue is implemented in a
 // recursive fashion, thus the methods look farily similar.
-interface IQueueItem <T> {
+interface IQueueItem<T> {
   value: T;
   next: IQueueItem<T>;
 
@@ -148,14 +144,14 @@ class TailQueueItem<T> implements IQueueItem<T> {
   // The tail item's successor is the tail item itself.
   public next: TailQueueItem<T> = this;
 
-  enqueue (value: T): QueueItem<T> {
+  enqueue(value: T): QueueItem<T> {
     // When we're the last item in the queue (which is the case here), enqueue wraps
     // our passed in value in a QueueItem and returns it.
     return new QueueItem<T>(value);
   }
 
   // When the queue is empty, toArray() returns an empty array.
-  toArray (): Array<T> {
+  toArray(): Array<T> {
     return [];
   }
 }
@@ -165,18 +161,18 @@ class QueueItem<T> implements IQueueItem<T> {
   public value: T;
   public next: TailQueueItem<T> = new TailQueueItem<T>();
 
-  constructor (value: T) {
+  constructor(value: T) {
     this.value = value;
   }
 
-  enqueue (value: T): QueueItem<T> {
+  enqueue(value: T): QueueItem<T> {
     // When we add an item to the queue and we're the last "real" queue item that
     // holds a value, we need to update our reference to the next queue item.
     this.next = this.next.enqueue(value);
     return this;
   }
 
-  toArray (): Array<T> {
+  toArray(): Array<T> {
     // The time complexity of this isn't great. We could use generators for
     // this.
     return [this.value, ...this.next.toArray()];
@@ -187,22 +183,18 @@ export class Queue<T> implements IQueue<T> {
   // The head of the queue can initially be set to a new TailQueueItem.
   private head: TailQueueItem<T> = new TailQueueItem<T>();
 
-  enqueue (value: T): void {
+  enqueue(value: T): void {
     // The nice thing about the way we implemented the TailQueueItem is
     // that we don't actually have to check whether or not our queue is empty. We
     // can always just enqueue() onto it.
-    this.head = this.head.enqueue(value);
   }
 
-  dequeue (): T {
-    const value: T = this.head.value;
-    this.head = this.head.next;
-    return value;
+  dequeue(): T {
+    return null;
   }
 
-  toArray (): Array<T> {
-    // Same with toArray()...
-    return this.head.toArray();
+  toArray(): Array<T> {
+    return [];
   }
 }
 

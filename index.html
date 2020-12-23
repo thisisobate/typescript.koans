@@ -9,19 +9,16 @@
 </head>
 
 <body>
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-12">
-        <h4>TypeScript compilation</h4>
-        <pre class="alert-danger" id="compilation">Loading...</pre>
-      </div>
-    </div>
-  </div>
   <div id="mocha"></div>
   <script src="https://cdn.rawgit.com/jquery/jquery/2.1.4/dist/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.1.2/mocha.js"></script>
   <script>
-    mocha.setup('bdd')
+    mocha.setup({
+      bail: true,
+      checkLeaks: true,
+      globals: ['jQuery'],
+      ui: 'bdd',
+    })
   </script>
   <script src="dist/test/01_intro.test.js"></script>
   <script src="dist/test/02_array.test.js"></script>
@@ -31,13 +28,7 @@
   <script src="dist/test/06_stack.test.js"></script>
   <script src="dist/test/07_extra.test.js"></script>
   <script>
-    mocha.checkLeaks();
-    mocha.globals(['jQuery']);
     mocha.run();
-
-    $.get('tsc.log', function(data) {
-      $('#compilation').html(data.replace(/\[(\d+;)?\d+m/g, ''));
-    });
   </script>
 </body>
 

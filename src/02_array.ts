@@ -21,8 +21,7 @@
  *  _.chunk(["a", "b", "c", "d"], 3) => [["a", "b", "c"], ["d"]]
  *  _.chunk(["a", "b", "c"]) => [["a"], ["b"], ["c"]]
  * */
-export function chunk() {
-}
+export function chunk() {}
 
 /**
  * ### compact
@@ -37,8 +36,7 @@ export function chunk() {
  * _.compact([1, 0, 2, 0, 3]) => [1, 2, 3]
  * _.compact([1, undefined, NaN, null, 0, 2, 3]) => [1, 2, 3]
  */
-export function compact() {
-}
+export function compact() {}
 
 /**
  * ### head
@@ -49,6 +47,7 @@ export function compact() {
  *  _.head([]) => undefined
  */
 export function head() {
+  return null;
 }
 
 /**
@@ -59,8 +58,7 @@ export function head() {
  *  _.initial<number>([1, 2, 3]) => [1, 2]
  *
  */
-export function initial() {
-}
+export function initial<T>() {}
 
 /**
  * ### last
@@ -72,6 +70,7 @@ export function initial() {
  *
  */
 export function last() {
+  return null;
 }
 
 /**
@@ -84,8 +83,7 @@ export function last() {
  * _.drop([1, 2, 3, 4], 2) => [3, 4]
  * _.drop([1, 2, 3, 4]) => [2, 3, 4]
  */
-export function drop() {
-}
+export function drop() {}
 
 /**
  * ### dropRight
@@ -97,22 +95,22 @@ export function drop() {
  * _.dropRight([1, 2, 3, 4]) => [1, 2, 3]
  *
  */
-export function dropRight() {
-}
+export function dropRight() {}
 
 interface DropWhilePredicate<T> {
   (value?: T, index?: number, collection?: Array<T>): boolean;
 }
 /**
-* ### dropWhile
-* dropWhile works similar to drop. It removes items from the beginning of the
-* array until the predicate returns false.
-*
-* ## Examples
-* _.dropWhile([1, 2, 3, 4, 5, 1], value => value < 3) => [3, 4, 5, 1]
-*
-*/
+ * ### dropWhile
+ * dropWhile works similar to drop. It removes items from the beginning of the
+ * array until the predicate returns false.
+ *
+ * ## Examples
+ * _.dropWhile([1, 2, 3, 4, 5, 1], value => value < 3) => [3, 4, 5, 1]
+ *
+ */
 export function dropWhile<T>(collection: Array<T>, predicate: DropWhilePredicate<T>): Array<T> {
+  return [];
 }
 
 /**
@@ -124,8 +122,7 @@ export function dropWhile<T>(collection: Array<T>, predicate: DropWhilePredicate
  * _.dropRightWhile([5, 4, 3, 2, 1], value => value < 3) => [5, 4, 3]
  *
  */
-export function dropRightWhile() {
-}
+export function dropRightWhile() {}
 
 /**
  * ### fill
@@ -135,12 +132,10 @@ export function dropRightWhile() {
  * ## Examples
  * _.fill<any>([4, 6, 8, 10], "* ", 1, 3) => [4, "* ", "* ", 10]
  */
-export function fill() {
-}
+export function fill() {}
 
 // Here we define an interface for the predicate used in the findIndex function.
-export interface FindIndexPredicate {
-}
+export interface FindIndexPredicate {}
 
 /**
  * ### findIndex
@@ -155,8 +150,7 @@ export interface FindIndexPredicate {
  * _.findIndex([4, 6, 6, 8, 10], value => value === 6, 2) => 2
  *
  */
-export function findIndex() {
-}
+export function findIndex() {}
 
 /**
  * ### findLastIndex
@@ -170,8 +164,7 @@ export function findIndex() {
  * _.findLastIndex([4, 6, 6, 8, 10], value => value === 6, 1) => 1
  *
  */
-export function findLastIndex() {
-}
+export function findLastIndex() {}
 
 /**
  * ### nth
@@ -184,8 +177,7 @@ export function findLastIndex() {
  * _.nth<number>([1, 2, 3]) => 1
  *
  */
-export function nth() {
-}
+export function nth() {}
 
 /**
  * ### zip
@@ -194,5 +186,4 @@ export function nth() {
  * // We can also use something called "union types" here.
  * _.zip<string | number | boolean>(["a", "b"], [1, 2], [true, false]) => [["a", 1, true], ["b", 2, false]]
  */
-export function zip() {
-}
+export function zip() {}

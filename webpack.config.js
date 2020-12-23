@@ -8,20 +8,17 @@ module.exports = {
     '04_export': './test/04_export.test.ts',
     '05_queue': './test/05_queue.test.ts',
     '06_stack': './test/06_stack.test.ts',
-    '07_extra': './test/07_extra.test.ts'
+    '07_extra': './test/07_extra.test.ts',
   },
   output: {
     filename: '[name].test.js',
     path: path.join(__dirname, 'dist/test'),
-
   },
   resolve: {
-    extensions: ["", ".ts", ".js"],
+    extensions: ['', '.ts', '.js'],
   },
-  devtool: "eval-source-map",
+  devtool: 'eval-source-map',
   module: {
-    loaders: [
-      { test: /\.ts$/, loader: "ts-loader" }
-    ]
-  }
+    loaders: [{ test: /\.ts$/, loader: 'ts-loader' }],
+  },
 };
