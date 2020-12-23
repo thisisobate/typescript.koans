@@ -4,11 +4,9 @@
   "description": "learn TypeScript the right way",
   "main": "index.js",
   "scripts": {
-    "build": "tsc --pretty",
-    "build:watch": "tsc --pretty --watch",
-    "build:web": "webpack --watch",
+    "build": "webpack --watch",
     "live": "live-server",
-    "start": "npm-run-all --parallel web:ts build:web live",
+    "start": "npm-run-all --parallel web:ts build live",
     "web:ts": "watch 'tsc --pretty --outDir dist/trash > tsc.log' src/"
   },
   "repository": {
