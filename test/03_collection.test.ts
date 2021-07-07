@@ -169,7 +169,7 @@ describe("03_collection", function () {
     });
 
     it("should be able to transform an object", function () {
-      const collection = { 'a': 1, 'b': 2, 'c': 1 };
+      const collection = { 'a': 1, 'b': 1, 'c': 3 };
       let seed = {};
       const iteratee = (result, value, key) => {
         if (!result[value]) {
@@ -179,9 +179,9 @@ describe("03_collection", function () {
         return result;
       };
       const actual = _.reduce(collection, iteratee, seed);
-      const expected = { '1': ['a', 'c'], '2': ['b'] };
+      const expected = { '1': ['a', 'b'], '3': ['c'] };
 
-      expect(actual).to.equal(expected);
+      expect(actual).to.deep.equal(expected);
     });
 
   });

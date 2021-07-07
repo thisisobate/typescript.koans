@@ -45,13 +45,29 @@ interface DictionaryForEachIteratee<T> {
  *  _.forEach(collection, iteratee); => result === [['0', 'first'], ['1', 'second'], ['2', 'thidrd']];
  *
  */
-export function forEach() {
+export function forEach<T>(collection: (Object | Array<T>), iteratee: (arg1:T , arg2: number | string, arg3: (Object | Array<T>)) => void) {
+  let result = [];
+  if (typeof collection === "object") {
+    for (const key in collection) {
+      iteratee(collection[key], key, collection);
+    }
+  }
+  if (Array.isArray(collection)) {
+    for (let i = 0; i < collection.length; i++) {
+      iteratee(collection[i], i, collection);
+    }
+  }
+  return result;
 }
+  
 
 interface EveryIteratee<T> {
   (value?: T, index?: number, collection?: Array<T>): boolean;
 }
-
+ interface params<T> {
+   collection: Object | Array<T>;
+   iteratee: (arg1:T , arg2?: number | string, arg3?: (Object | Array<T>)) => boolean;
+ }
 /**
  * ### every
  *
@@ -64,7 +80,29 @@ interface EveryIteratee<T> {
  *  _.every([true, 1, null, 'yes'], Boolean); => false
  *  _.every([null, null, null], (value, index, collection) => value === null); => true
  */
-export function every() {
+export function every<T>(collection: Object | Array<T>, iteratee: (arg1, arg2, arg3) => boolean) {
+  let truthcount = 0;
+  if (typeof collection === "object") {
+    for (const key in collection) {
+      let boolValue = iteratee(collection[key], key, collection);
+      if (boolValue === false ) {
+        return false;
+      } else {
+        truthcount + 1;
+      }
+    }
+  }
+  if (Array.isArray(collection)) {
+    for (let i = 0; i < collection.length; i++) {
+      let boolValue = iteratee(collection[i], i, collection);
+      if (boolValue === false ) {
+        return false;
+      } else {
+        truthcount + 1;
+      }
+    }
+  }
+  return true;
 }
 
 /**
@@ -88,7 +126,27 @@ export function every() {
  *  _.filter<number>(collection, iteratee) => { 'a': 1, 'c': 3 }
  *
  */
-export function filter() {
+export function filter<T>(collection: Object | Number[],   iteratee: (arg1: Number, arg2?: Number | String) => boolean ) {
+  let resultArray = [];
+  let resultObject = {};
+  if (typeof collection === "object") {
+    for (const key in collection) {
+      let boolValue = iteratee(collection[key], key);
+      if (boolValue === true) {
+        resultObject[key] = collection[key];
+      }
+    }
+  }
+  if (Array.isArray(collection)) {
+    for (let i = 0; i < collection.length; i++) {
+      let boolValue = iteratee(collection[i]);
+      if (boolValue === true) {
+        resultArray.push(collection[i]);
+      }
+    }
+    return resultArray;
+  }
+  return resultObject;
 }
 
 /**
@@ -110,8 +168,25 @@ export function filter() {
  *
  *  _.map<number>(collection, iteratee) => [[1,'a'], [2, 'b']]
  */
-export function map() {
+export function map<T>(collection: object | number[], iteratee: (key: number, value?: string) => number | T[]) {
+  let resultArray = [];
+  let resultObject = [];
+  if (typeof collection === "object") {
+    for (const key in collection) {
+      let value = iteratee(collection[key], key);
+      resultObject.push(value);
+    }
+  }
+  if (Array.isArray(collection)) {
+    for (let i = 0; i < collection.length; i++) {
+      let value = iteratee(collection[i]);
+      resultArray.push(value);
+    }
+    return resultArray;
+  }
+  return resultObject;
 }
+
 
 /**
  * ### reduce
@@ -133,5 +208,16 @@ export function map() {
  *    }, {}); => { '1': ['a', 'c'], '2': ['b'] }
  *
  */
-export function reduce() {
+export function reduce<T>(collection: object | number[], iteratee: (key, value?, result?) => number | object, seed: number | object) {
+  if (typeof collection === "object" && typeof seed === "object") {
+    for (const key in collection) {
+       iteratee(seed, collection[key], key);
+    }
+  }
+  if (Array.isArray(collection) && typeof seed === "number") {
+    for (let i = 0; i < collection.length; i++) {
+      seed = iteratee(collection[i], seed);
+    }
+  }
+  return seed;
 }

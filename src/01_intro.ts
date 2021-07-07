@@ -15,7 +15,9 @@ export function addNumbers(x: number, y: number): number {
 // both strings and numbers, the goal of this function is to add strings.
 // By enforcing this in the function signature, we can safely change
 // its implementation later
-export function addStrings(x, y) {}
+export function addStrings(x, y) {
+  return x + y;
+}
 
 // In this lesson we're going to learn about a couple of Typescript concepts (or
 // type systems in general). Specifically, this is what you'll know as soon as
@@ -33,8 +35,8 @@ export function addStrings(x, y) {}
 // This function can accept any type!
 // But it always returns something of the same type as what was provided.
 // Hint: Use a generic type (<T>).
-export function identity<T>(item?) {
-  return null;
+export function identity<T>(item?:T): T {
+  return item;
 }
 
 // ## attempt
@@ -43,26 +45,33 @@ export function identity<T>(item?) {
 // not throw an error, the result is being returned.
 export function attempt(func, ...args) {
   try {
-  } catch (err) {}
+    return func(...args);
+  } catch(err) {
+    return err;
+  }
 }
 
 // ### constant
 // constant returns a function that returns a the passed in value.
 export function constant<T>(value) {
-  return function () {};
+  return function() {
+    return value;
+  }
 }
 
 // ### noop
 // noop can be called with arbitrary arguments, it will always return
 // `undefined`.
-export function noop() {
-  return null;
+export function noop(...b:any):undefined {
+  return undefined;
 }
 
 // ### times
 // times invokes the passed in iteratee (2nd argument) n times. It returns an
 // array of results.
-export function times<T>(n, iteratee) {
+
+export function times<T>(n: number, iteratee):T[] {
   // If the fill function doesn't exist then implement it...
-  // return Array(n).fill().map((o, i) => iteratee(i));
+  
+  return Array(n).fill().map((o, i) => iteratee(i));
 }
